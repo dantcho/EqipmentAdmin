@@ -169,8 +169,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EquipmentModelsController.cs" />
+    <Compile Include="Controllers\EquipmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PassportsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -259,6 +261,16 @@
     <Content Include="Views\EquipmentModels\Details.cshtml" />
     <Content Include="Views\EquipmentModels\Edit.cshtml" />
     <Content Include="Views\EquipmentModels\Index.cshtml" />
+    <Content Include="Views\Equipments\Create.cshtml" />
+    <Content Include="Views\Equipments\Delete.cshtml" />
+    <Content Include="Views\Equipments\Details.cshtml" />
+    <Content Include="Views\Equipments\Edit.cshtml" />
+    <Content Include="Views\Equipments\Index.cshtml" />
+    <Content Include="Views\Passports\Create.cshtml" />
+    <Content Include="Views\Passports\Delete.cshtml" />
+    <Content Include="Views\Passports\Details.cshtml" />
+    <Content Include="Views\Passports\Edit.cshtml" />
+    <Content Include="Views\Passports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

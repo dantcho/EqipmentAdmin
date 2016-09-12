@@ -84,6 +84,7 @@ namespace EqipmentAdmin.Migrations
                 CreateSecuritySiteCheck(context, "Т2 Изход A1", "Служебен");
                 CreateSecuritySiteCheck(context, "Т2 Изход C1", "Служебен");
                 CreateSecuritySiteCheck(context, "Т2 Изход B3", "Служебен");
+                CreateSecuritySiteCheck(context, "Т2 Ръш багаж Багажно хале", "ПРБ");
                 CreateSecuritySiteCheck(context, "Т2 Багажно хале", "ПРБ");
                 context.SaveChanges();
             }
@@ -104,24 +105,55 @@ namespace EqipmentAdmin.Migrations
                 CreateStandart(context, "WTMD-ST2", "WTMD Standart 2");
                 CreateStandart(context, "EDS-1", "Find Explosives");
                 CreateStandart(context, "EDS-2", "Find Explosives");
+                CreateStandart(context, "ETD-1", "Find Explosives");
                 CreateStandart(context, "ScPMML", "Find pokemon");
                 CreateStandart(context, "QRS-ST2", "Find tits");
                 CreateStandart(context, "WMSMTR", "Find everything");
                 context.SaveChanges();
-
             }
 
             if (!context.EquipmentModels.Any())
             {
                 CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 100100V", "XRAY", new string[] { "XRAY-1" });
-                CreateEquipmentModel(context, "Meteor", "700PX", "WTMD", new string[] { "WTMD-ST1" });
-                CreateEquipmentModel(context, "CEIA", "700PX", "WTMD", new string[] { "WTMD-ST2" });
+                CreateEquipmentModel(context, "Meteor", "M700", "WTMD", new string[] { "WTMD-ST1" });
+                CreateEquipmentModel(context, "CEIA", "PX2", "WTMD", new string[] { "WTMD-ST2" });
+                CreateEquipmentModel(context, "CEIA", "PX2", "SMD", new string[] { });
+                CreateEquipmentModel(context, "Smiths Detection", "IONSCAN 500DT", "ETD", new string[] { "ETD-1" });
                 CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 6040aTiX", "XRAY", new string[] { "XRAY-1", "EDS-1", "ScPMML" });
                 CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 145180-2is", "XRAY", new string[] { "XRAY-1" });
                 CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 145180TS", "XRAY", new string[] { "XRAY-1" });
+                CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 6046si", "XRAY", new string[] { "XRAY-1","XRAY-2" });
                 context.SaveChanges();
-
             }
+            
+            if (!context.Equipments.Any())
+            {
+                CreateEquipment(context,"34534", "HI-SCAN 145180TS");
+                CreateEquipment(context, "3556", "HI-SCAN 6040aTiX");
+                CreateEquipment(context, "346743", "HI-SCAN 145180-2is");
+                CreateEquipment(context, "234563", "HI-SCAN 6040aTiX");
+                CreateEquipment(context, "65969", "HI-SCAN 6046si");
+                CreateEquipment(context, "322355", "HI-SCAN 6040aTiX");
+                CreateEquipment(context, "97555", "IONSCAN 500DT");
+                CreateEquipment(context, "322355", "HI-SCAN 100100V");
+                CreateEquipment(context, "52355", "HI-SCAN 6040aTiX");
+                CreateEquipment(context, "3683245", "PX2");
+                CreateEquipment(context, "3683246", "PX2");
+                CreateEquipment(context, "3683247", "PX2");
+                CreateEquipment(context, "3683248", "PX2");
+                CreateEquipment(context, "7467352", "M700");
+                CreateEquipment(context, "7467355", "M700");
+                CreateEquipment(context, "7467354", "M700");
+                CreateEquipment(context, "7467356", "M700");
+                context.SaveChanges();
+            }
+        }
+
+        private void CreateEquipment(ApplicationDbContext context, string serial, string model)
+        {
+            var equipment = new Equipment() {Serial=serial};
+            equipment.ModelId = context.EquipmentModels.First(x => x.ModelName.Equals(model));
+            context.Equipments.Add(equipment);
         }
 
         private void CreateEquipmentModel(ApplicationDbContext context, string producer, string model, string type, ICollection<string> stColection)
