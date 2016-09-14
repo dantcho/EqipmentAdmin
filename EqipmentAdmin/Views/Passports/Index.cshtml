@@ -14,6 +14,12 @@
         <th>
             @Html.DisplayNameFor(model => model.CreateDate)
         </th>
+        <th>
+            @Html.DisplayNameFor(x => x.EquipmentId.ModelId.ModelName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => x.EquipmentId.Serial)
+        </th>
         <th></th>
     </tr>
 
@@ -21,6 +27,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EquipmentId.ModelId.ModelName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EquipmentId.Serial)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

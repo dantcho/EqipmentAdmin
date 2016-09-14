@@ -21,13 +21,14 @@ namespace EqipmentAdmin.Controllers
         }
 
         // GET: Passports/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Passport passport = db.Passports.Find(id);
+            //Equipment eq = db.Equipments.Find(Id);
+            Passport passport = db.Passports.FirstOrDefault(x => x.EquipmentId.Id == Id);
             if (passport == null)
             {
                 return HttpNotFound();
@@ -36,9 +37,21 @@ namespace EqipmentAdmin.Controllers
         }
 
         // GET: Passports/Create
-        public ActionResult Create()
+        public ActionResult Create(int Id)
         {
-            return View();
+
+            var passp = db.Passports.FirstOrDefault(x => x.EquipmentId.Id == Id);
+            if (passp == null)
+            {
+                passp = new Passport();
+                passp.CreateDate = DateTime.Now;
+                Equipment equ = db.Equipments.FirstOrDefault(x => x.Id == Id);
+                passp.EquipmentId = equ;
+                db.Passports.Add(passp);
+                db.SaveChanges();
+                return View("Details");
+            }
+            return RedirectToAction("Index", "Equipments");
         }
 
         // POST: Passports/Create

@@ -11,6 +11,8 @@ namespace EqipmentAdmin.Models
         [Key]
         public int Id { get; set; }
         public DateTime CreateDate { get; set; }
+        [Required]
+        public virtual Equipment EquipmentId { get; set; }
         public virtual ICollection<SiteHistory> MovingHistory { get; set; }
         public virtual ICollection<SatTest> SatTests { get; set; }
         public virtual ICollection<EquipmentStatus> Statuses { get; set; }

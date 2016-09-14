@@ -13,7 +13,7 @@ namespace EqipmentAdmin.Models
 
         public string Serial { get; set; }
         public string InventarNum { get; set; }
-        public virtual Passport Passport { get; set; }
+    //    public virtual Passport Passport { get; set; }
         public virtual EquipmentModel ModelId { get; set; }
     }
 }

@@ -122,13 +122,13 @@ namespace EqipmentAdmin.Migrations
                 CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 6040aTiX", "XRAY", new string[] { "XRAY-1", "EDS-1", "ScPMML" });
                 CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 145180-2is", "XRAY", new string[] { "XRAY-1" });
                 CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 145180TS", "XRAY", new string[] { "XRAY-1" });
-                CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 6046si", "XRAY", new string[] { "XRAY-1","XRAY-2" });
+                CreateEquipmentModel(context, "Smiths Detection", "HI-SCAN 6046si", "XRAY", new string[] { "XRAY-1", "XRAY-2" });
                 context.SaveChanges();
             }
-            
+
             if (!context.Equipments.Any())
             {
-                CreateEquipment(context,"34534", "HI-SCAN 145180TS");
+                CreateEquipment(context, "34534", "HI-SCAN 145180TS");
                 CreateEquipment(context, "3556", "HI-SCAN 6040aTiX");
                 CreateEquipment(context, "346743", "HI-SCAN 145180-2is");
                 CreateEquipment(context, "234563", "HI-SCAN 6040aTiX");
@@ -147,11 +147,63 @@ namespace EqipmentAdmin.Migrations
                 CreateEquipment(context, "7467356", "M700");
                 context.SaveChanges();
             }
+            if (!context.EquipmentUsers.Any())
+            {
+                CreateEquipmentUser(context, "Пенчо Въбанов", "Pencho Varbanov", "00873", "3242", true, true);
+                CreateEquipmentUser(context, "Иван Въбанов", "Ivan Varbanov", "05773", "322", true, true);
+                CreateEquipmentUser(context, "Драган Исмаилов", "Dragan Ismailov", "00863", "32422", true, true);
+                CreateEquipmentUser(context, "Витко Пеев", "Vitko Peev", "00853", "3245", true, false);
+                CreateEquipmentUser(context, "Резьо Иванов", "Rezjo Ivanov", "00843", "3243", true, true);
+                CreateEquipmentUser(context, "Кирчо Киров", "Kircho Kirov", "08267", "3252", true, true);
+                CreateEquipmentUser(context, "Иван Баламезов", "Ivan Balamezov", "00733", "3342", true, false);
+                context.SaveChanges();
+            }
+            if (!context.UserHistorys.Any())
+            {
+                CreateUserHistory(context, "00873", "ПСЛ", "12/1/2015");
+                CreateUserHistory(context, "05773", "ПСЛ", "1/2/2011", "2/12/2015");
+                CreateUserHistory(context, "05773", "ПСПРБ", "3/12/2015");
+                CreateUserHistory(context, "00863", "ПСПРБ", "11/1/2015");
+                CreateUserHistory(context, "00853", "ПСПРБ", "1/1/2014");
+                CreateUserHistory(context, "00843", "ПРБ", "12/2/2012");
+                CreateUserHistory(context, "08267", "ПРБ", "10/12/2013");
+                CreateUserHistory(context, "00733", "ПСЛ", "10/10/2012");
+            }
+            context.SaveChanges();
+
+        }
+
+        private void CreateUserHistory(ApplicationDbContext context, string userId, string dep, string fromDate)
+        {
+            var usrH = new UserHistory()
+            {
+                EquipmentUserId = context.EquipmentUsers.First(x => x.UserID.Equals(userId)),
+                DepartmentId = context.Departments.First(x => x.Name.Equals(dep)),
+                StartDate = DateTime.Parse(fromDate)
+            };
+            context.UserHistorys.Add(usrH);
+        }
+        private void CreateUserHistory(ApplicationDbContext context, string userId, string dep, string fromDate, string toDate)
+        {
+            var usrH = new UserHistory()
+            {
+                EquipmentUserId = context.EquipmentUsers.First(x => x.UserID.Equals(userId)),
+                DepartmentId = context.Departments.First(x => x.Name.Equals(dep)),
+                StartDate = DateTime.Parse(fromDate),
+                EndDate = DateTime.Parse(toDate)
+            };
+            context.UserHistorys.Add(usrH);
+        }
+
+        private void CreateEquipmentUser(ApplicationDbContext context, string nameBg, string name, string userId, string password, bool isActive, bool isForEvulation)
+        {
+            var eqUsr = new EquipmentUser() { NameBG = nameBg, NameUS = name, UserID = userId, Password = password, IsActive = isActive, IsForEvulation = isForEvulation };
+            context.EquipmentUsers.Add(eqUsr);
         }
 
         private void CreateEquipment(ApplicationDbContext context, string serial, string model)
         {
-            var equipment = new Equipment() {Serial=serial};
+            var equipment = new Equipment() { Serial = serial };
             equipment.ModelId = context.EquipmentModels.First(x => x.ModelName.Equals(model));
             context.Equipments.Add(equipment);
         }
@@ -167,7 +219,7 @@ namespace EqipmentAdmin.Migrations
             foreach (var stndart in stColection)
             {
                 Standart st = context.Standarts.First(x => x.Name.Equals(stndart));
-                if (eqM.Standarts==null)
+                if (eqM.Standarts == null)
                 {
                     eqM.Standarts = new List<Standart>();
                 }

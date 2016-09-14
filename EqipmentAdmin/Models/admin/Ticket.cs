@@ -16,5 +16,6 @@ namespace EqipmentAdmin.Models
         public bool Resolved { get; set; }
         public virtual ApplicationUser IssueUser { get; set; }
         public virtual Equipment IssueEquip { get; set; }
+        public virtual ICollection<Comments> Comments { get; set; }
     }
 }

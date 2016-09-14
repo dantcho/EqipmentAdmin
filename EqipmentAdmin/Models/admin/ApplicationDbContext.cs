@@ -33,6 +33,9 @@ namespace EqipmentAdmin.Models
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<UserActivity> UserActivitys { get; set; }
         public DbSet<UserHistory> UserHistorys { get; set; }
-        public DbSet<UserTipActivity> UserTipActivitys { get; set; }       
+        public DbSet<UserTipActivity> UserTipActivitys { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<Comments> Comments { get; set; }
+
     }
 }
